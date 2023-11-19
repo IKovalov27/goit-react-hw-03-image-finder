@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 import fetchImages from '../utils/pixabay-api';
 import Searchbar from 'components/Searchbar/Searchbar';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
@@ -142,5 +143,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

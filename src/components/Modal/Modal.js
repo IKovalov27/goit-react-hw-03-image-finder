@@ -1,58 +1,48 @@
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Component } from 'react';
-import { createPortal } from 'react-dom';
-import { BsXLg } from 'react-icons/bs';
+import { IoCloseCircleOutline } from "react-icons/io5";
+
 import css from './Modal.module.css';
 
 class Modal extends Component {
   static propTypes = {
-    title: PropTypes.string,
+    currentImageUrl: PropTypes.string.isRequired,
+    currentImageDescription: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
+    window.addEventListener('keydown', this.clickEsc);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
+    window.removeEventListener('keydown', this.clickEsc);
   }
 
-  handleClickBackdrop = e => {
-    if (e.target === e.currentTarget) {
+  clickBackdrop = (event) => {
+    if (event.target === event.currentTarget) {
       this.props.onClose();
     }
   };
 
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
+  clickEsc = (event) => {
+    if (event.code === 'Escape') {
       this.props.onClose();
     }
   };
 
   render() {
-    const { title, onClose, currentImageUrl, currentImageDescription } =
-      this.props;
+    const { currentImageUrl, onClose, currentImageDescription } = this.props;
 
-    return createPortal(
-      <div className={css.backdrop} onClick={this.handleClickBackdrop}>
+    return (
+      <div className={css.overlay} onClick={this.clickBackdrop}>
         <div className={css.modal}>
-          <div className={css.wrapper}>
-            {title && <h1 className={css.title}>{title}</h1>}
-            <button className={css.button} type="button" onClick={onClose}>
-              <BsXLg className={css.icon} />
-            </button>
-          </div>
-          <img
-            src={currentImageUrl}
-            alt={currentImageDescription}
-            loading="lazy"
-          />
+          <IoCloseCircleOutline className={css.button} type="button" onClick={onClose} />
+          <img src={currentImageUrl} alt={currentImageDescription} />
+        </div>
       </div>
-      </div>,
-      modalRoot
     );
   }
-};
+}
 
 export default Modal;
