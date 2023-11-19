@@ -4,14 +4,10 @@ import { createPortal } from 'react-dom';
 import { BsXLg } from 'react-icons/bs';
 import css from './Modal.module.css';
 
-const modalRoot = document.querySelector('#modal-root');
-
 class Modal extends Component {
   static propTypes = {
     title: PropTypes.string,
     onClose: PropTypes.func.isRequired,
-    currentImageUrl: PropTypes.string,
-    currentImageDescription: PropTypes.string,
   };
 
   componentDidMount() {
@@ -52,7 +48,7 @@ class Modal extends Component {
             alt={currentImageDescription}
             loading="lazy"
           />
-        </div>
+      </div>
       </div>,
       modalRoot
     );
